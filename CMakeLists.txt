@@ -34,6 +34,16 @@ if (SUPPORT_PNG)
 	set(HAVE_LD_VERSION_SCRIPT OFF CACHE BOOL "" FORCE)
 	target_compile_definitions(SDL2_image PRIVATE -DLOAD_PNG)
 
+	add_subdirectory(external/zlib-1.2.11)
+	include_directories(external/zlib-1.2.11)
+	target_link_libraries(SDL2_image PRIVATE zlib)
+
+	set(SKIP_INSTALL_ALL ON CACHE BOOL "")
+	set(ZLIB_LIBRARY "zlib" CACHE STRING "" FORCE)
+	set(PNG_BUILD_ZLIB ON CACHE BOOL "")
+	set(PNG_SHARED OFF CACHE BOOL "")
+	set(PNG_TESTS OFF CACHE BOOL "")
+
 	add_subdirectory(external/libpng-1.6.37)
 	include_directories(external/libpng-1.6.37)
 	target_link_libraries(SDL2_image PRIVATE png)
